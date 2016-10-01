@@ -17,8 +17,9 @@ class RustFormatCommand(sublime_plugin.TextCommand):
         return is_rust(self.view)
 
     def run(self, edit):
+        binary = settings().get('rust_format_binary') or 'rustfmt'
         rustfmt = subprocess.Popen(
-            ['rustfmt', self.view.file_name()],
+            [binary, '--write-mode=overwrite', self.view.file_name()],
             stderr=subprocess.PIPE,
             stdout=subprocess.PIPE,
             shell=False,
