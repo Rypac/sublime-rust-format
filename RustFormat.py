@@ -42,5 +42,5 @@ class RustFormatCommand(sublime_plugin.TextCommand):
 
 class RustFormatListener(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
-        if is_rust(view) and settings().get('rust_format_on_save', False):
+        if is_rust(view) and settings().get('rust_format_on_save'):
             view.run_command('rust_format')
