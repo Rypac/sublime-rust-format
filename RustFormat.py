@@ -4,7 +4,7 @@ import subprocess
 
 
 def is_rust(view):
-    return "source.rust" in view.scope_name(0)
+    return view.score_selector(0, 'source.rust') > 0
 
 
 def settings():
@@ -12,7 +12,6 @@ def settings():
 
 
 class RustFormatCommand(sublime_plugin.TextCommand):
-
     def is_enabled(self):
         return is_rust(self.view)
 
@@ -30,7 +29,6 @@ class RustFormatCommand(sublime_plugin.TextCommand):
 
 
 class RustFormatListener(sublime_plugin.EventListener):
-
     def on_post_save_async(self, view):
         if is_rust(view) and settings().get('rust_format_on_save', False):
             view.run_command('rust_format')
