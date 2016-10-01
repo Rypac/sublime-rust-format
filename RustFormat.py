@@ -1,9 +1,14 @@
+import sublime
 import sublime_plugin
 import subprocess
 
 
 def is_rust(view):
     return "source.rust" in view.scope_name(0)
+
+
+def settings():
+    return sublime.load_settings('RustFormat.sublime-settings')
 
 
 class RustFormatCommand(sublime_plugin.TextCommand):
@@ -16,16 +21,15 @@ class RustFormatCommand(sublime_plugin.TextCommand):
             ['rustfmt', self.view.file_name()],
             stderr=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            shell=True)
+            shell=False,
+            universal_newlines=True)
         output, errors = rustfmt.communicate()
-        if self.view.settings().get('rust_format_debug', False):
-            print(
-                'RustFormat: ', str(output.strip()), '\n',
-                'Errors:', str(errors.strip()))
+        if settings().get('rust_format_debug', False):
+            print('RustFormat: ', output, '\nErrors:', errors)
 
 
 class RustFormatListener(sublime_plugin.EventListener):
 
     def on_post_save_async(self, view):
-        if is_rust(view) and view.settings().get('rust_format_on_save', False):
+        if is_rust(view) and settings().get('rust_format_on_save', False):
             view.run_command('rust_format')
