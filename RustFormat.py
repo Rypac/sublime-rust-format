@@ -24,9 +24,9 @@ class RustFormatCommand(sublime_plugin.TextCommand):
             stdout=subprocess.PIPE,
             shell=False,
             universal_newlines=True)
-        output, errors = rustfmt.communicate()
-        if settings().get('rust_format_debug', False):
-            print('RustFormat: ', output, '\nErrors:', errors)
+        output, error = rustfmt.communicate()
+        if error:
+            print('RustFormat:', error)
 
 
 class RustFormatListener(sublime_plugin.EventListener):
