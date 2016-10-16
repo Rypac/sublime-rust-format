@@ -16,9 +16,11 @@ Install using `cargo install rustfmt` or via instructions on the [website](https
 
 ## Usage
 
+Run the `RustFormat: Format Selection` command to format the current selection.
+
 Run the `RustFormat: Format File` command to format the current file.
 
-Alternatively the command can be invoked using the default keyboard shortcut (<kbd>Ctrl+k</kbd>, <kbd>Ctrl+f</kbd>).
+Alternatively the current file can be formatted using the default keyboard shortcut (<kbd>Ctrl+k</kbd>, <kbd>Ctrl+f</kbd>).
 
 ## Configuration
 

@@ -16,31 +16,63 @@ def settings():
     return sublime.load_settings('RustFormat.sublime-settings')
 
 
-class RustFormatCommand(sublime_plugin.TextCommand):
+def process_startup_info():
+    if not is_windows():
+        return None
+    startupinfo = subprocess.STARTUPINFO()
+    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    startupinfo.wShowWindow = subprocess.SW_HIDE
+    return startupinfo
+
+
+def print_error(error):
+    print('RustFormat:', error)
+
+
+class RustFormatSelectionCommand(sublime_plugin.TextCommand):
+    def is_enabled(self):
+        return len(self.view.sel()) > 0
+
+    def run(self, edit):
+        for region in self.view.sel():
+            if region.empty():
+                continue
+
+            binary = settings().get('rust_format_binary') or 'rustfmt'
+            rustfmt = subprocess.Popen(
+                [binary],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                startupinfo=process_startup_info(),
+                universal_newlines=True)
+
+            output, error = rustfmt.communicate(input=self.view.substr(region))
+            if not error:
+                self.view.replace(edit, region, output)
+            else:
+                print_error(error)
+
+
+class RustFormatFileCommand(sublime_plugin.TextCommand):
     def is_enabled(self):
         return is_rust(self.view)
 
     def run(self, edit):
-        startupinfo = None
-        if is_windows():
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            startupinfo.wShowWindow = subprocess.SW_HIDE
-
         binary = settings().get('rust_format_binary') or 'rustfmt'
         rustfmt = subprocess.Popen(
             [binary, '--write-mode=overwrite', self.view.file_name()],
-            stderr=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            startupinfo=startupinfo,
+            stderr=subprocess.PIPE,
+            startupinfo=process_startup_info(),
             universal_newlines=True)
 
         output, error = rustfmt.communicate()
         if error:
-            print('RustFormat:', error)
+            print_error(error)
 
 
 class RustFormatListener(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         if is_rust(view) and settings().get('rust_format_on_save'):
-            view.run_command('rust_format')
+            view.run_command('rust_format_file')
