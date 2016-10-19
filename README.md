@@ -6,13 +6,22 @@ A simple plugin to format Rust code.
 
 This package relies on the amazing [rustfmt](https://github.com/rust-lang-nursery/rustfmt) to format Rust source code files.
 
-Install using `cargo install rustfmt` or via instructions on the [website](https://github.com/rust-lang-nursery/rustfmt#installation).
+Install with [Cargo](https://crates.io/) using `cargo install rustfmt` or via instructions on the [website](https://github.com/rust-lang-nursery/rustfmt#installation).
 
 ## Installation
 
-1. Install Package Control
+#### Package Control
+
+1. Install [Package Control](https://packagecontrol.io/)
 2. Run `Package Control: Install Package` in the Command Palette (<kbd>Super+Shift+P</kbd>)
 3. Install `RustFormat`
+
+#### Manual
+
+1. Navigate to the Sublime Text package directory
+2. Clone the repository
+
+        $ git clone https://github.com/Rypac/sublime-rust-format.git RustFormat
 
 ## Usage
 
