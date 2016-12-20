@@ -41,9 +41,6 @@ def print_error(error):
 
 
 class RustFormatSelectionCommand(sublime_plugin.TextCommand):
-    def is_enabled(self):
-        return len(self.view.sel()) > 0
-
     def run(self, edit):
         for region in self.view.sel():
             if region.empty():
