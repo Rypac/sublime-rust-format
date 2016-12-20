@@ -13,6 +13,13 @@
                     {
                         "caption": "Format File",
                         "command": "rust_format_file"
+                    },
+                    {
+                        "caption": "-",
+                    },
+                    {
+                        "caption": "Format on Save",
+                        "command": "rust_format_toggle_on_save"
                     }
                 ]
             }

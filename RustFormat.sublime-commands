@@ -6,5 +6,13 @@
     {
         "caption": "RustFormat: Format File",
         "command": "rust_format_file"
+    },
+    {
+        "caption": "RustFormat: Enable Format on Save",
+        "command": "rust_format_enable_on_save"
+    },
+    {
+        "caption": "RustFormat: Disable Format on Save",
+        "command": "rust_format_disable_on_save"
     }
 ]

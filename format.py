@@ -16,6 +16,10 @@ def settings():
     return sublime.load_settings('RustFormat.sublime-settings')
 
 
+def save_settings():
+    return sublime.save_settings('RustFormat.sublime-settings')
+
+
 def process_startup_info():
     if not is_windows():
         return None
@@ -69,3 +73,23 @@ class RustFormatListener(sublime_plugin.EventListener):
     def on_post_save_async(self, view):
         if is_rust(view) and settings().get('rust_format_on_save'):
             view.run_command('rust_format_file')
+
+
+class RustFormatToggleOnSaveCommand(sublime_plugin.ApplicationCommand):
+    def is_checked(self):
+        return settings().get('rust_format_on_save')
+
+    def run(self):
+        format_on_save = settings().get('rust_format_on_save')
+        settings().set('rust_format_on_save', not format_on_save)
+        save_settings()
+
+
+class RustFormatEnableOnSaveCommand(RustFormatToggleOnSaveCommand):
+    def is_visible(self):
+        return not settings().get('rust_format_on_save')
+
+
+class RustFormatDisableOnSaveCommand(RustFormatToggleOnSaveCommand):
+    def is_visible(self):
+        return settings().get('rust_format_on_save')
