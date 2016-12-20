@@ -12,13 +12,17 @@
                         "children": [
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/RustFormat/RustFormat.sublime-settings" },
-                                "caption": "Settings – Default"
+                                "args": {
+                                    "file": "${packages}/RustFormat/RustFormat.sublime-settings"
+                                },
+                                "caption": "Settings - Default"
                             },
                             {
                                 "command": "open_file",
-                                "args": { "file": "${packages}/User/RustFormat.sublime-settings" },
-                                "caption": "Settings – User"
+                                "args": {
+                                    "file": "${packages}/User/RustFormat.sublime-settings"
+                                },
+                                "caption": "Settings - User"
                             },
                             {
                                 "caption": "-"

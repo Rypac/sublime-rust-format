@@ -1,4 +1,10 @@
 [
-    { "caption": "RustFormat: Format Selection", "command": "rust_format_selection" },
-    { "caption": "RustFormat: Format File", "command": "rust_format_file" }
+    {
+        "caption": "RustFormat: Format Selection",
+        "command": "rust_format_selection"
+    },
+    {
+        "caption": "RustFormat: Format File",
+        "command": "rust_format_file"
+    }
 ]
