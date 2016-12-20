@@ -25,6 +25,17 @@ def process_startup_info():
     return startupinfo
 
 
+def rustfmt(args=[]):
+    binary = settings().get('rust_format_binary') or 'rustfmt'
+    return subprocess.Popen(
+        [binary] + args,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        startupinfo=process_startup_info(),
+        universal_newlines=True)
+
+
 def print_error(error):
     print('RustFormat:', error)
 
@@ -38,16 +49,8 @@ class RustFormatSelectionCommand(sublime_plugin.TextCommand):
             if region.empty():
                 continue
 
-            binary = settings().get('rust_format_binary') or 'rustfmt'
-            rustfmt = subprocess.Popen(
-                [binary],
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                startupinfo=process_startup_info(),
-                universal_newlines=True)
-
-            output, error = rustfmt.communicate(input=self.view.substr(region))
+            selection = self.view.substr(region)
+            output, error = rustfmt().communicate(input=selection)
             if not error:
                 self.view.replace(edit, region, output)
             else:
@@ -59,15 +62,8 @@ class RustFormatFileCommand(sublime_plugin.TextCommand):
         return is_rust(self.view)
 
     def run(self, edit):
-        binary = settings().get('rust_format_binary') or 'rustfmt'
-        rustfmt = subprocess.Popen(
-            [binary, '--write-mode=overwrite', self.view.file_name()],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            startupinfo=process_startup_info(),
-            universal_newlines=True)
-
-        output, error = rustfmt.communicate()
+        args = ['--write-mode=overwrite', self.view.file_name()]
+        output, error = rustfmt(args).communicate()
         if error:
             print_error(error)
 
