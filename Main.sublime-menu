@@ -23,9 +23,6 @@
                                     "file": "${packages}/User/RustFormat.sublime-settings"
                                 },
                                 "caption": "Settings - User"
-                            },
-                            {
-                                "caption": "-"
                             }
                         ]
                     }
