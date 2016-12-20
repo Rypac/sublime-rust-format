@@ -1,5 +1,24 @@
 [
     {
+        "id": "tools",
+        "children": [
+            {
+                "caption": "RustFormat",
+                "id": "rust-format",
+                "children": [
+                    {
+                        "caption": "Format Selection",
+                        "command": "rust_format_selection"
+                    },
+                    {
+                        "caption": "Format File",
+                        "command": "rust_format_file"
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "id": "preferences",
         "children": [
             {
