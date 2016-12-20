@@ -23,15 +23,16 @@ Install with [Cargo](https://crates.io/) using `cargo install rustfmt` or via in
 
         $ git clone https://github.com/Rypac/sublime-rust-format.git RustFormat
 
-## Usage
+## Commands
 
-Run the `RustFormat: Format Selection` command to format the current selection.
-
-Run the `RustFormat: Format File` command to format the current file.
-
-Alternatively the current file can be formatted using the default keyboard shortcut (<kbd>Ctrl+k</kbd>, <kbd>Ctrl+f</kbd>).
-
-Toggle automatic formatting of Rust source files on save with the `RustFormat: Enable Format on Save` and `RustFormat: Disable Format on Save` commands.
+- `RustFormat: Format Selection`
+    + Format the current selection
+- `RustFormat: Format File` (<kbd>Ctrl+k</kbd>, <kbd>Ctrl+f</kbd>)
+    + Format the current file
+- `RustFormat: Enable Format on Save`
+    + Enable automatic formatting of Rust source files on save
+- `RustFormat: Disable Format on Save`
+    + Disable automatic formatting of Rust source files on save
 
 ## Configuration
 
