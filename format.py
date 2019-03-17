@@ -63,7 +63,7 @@ class RustFormatFileCommand(sublime_plugin.TextCommand):
         return is_rust(self.view)
 
     def run(self, edit):
-        args = ['--write-mode=overwrite', self.view.file_name()]
+        args = ['--emit=files', self.view.file_name()]
         output, error = rustfmt(args)
         if error:
             print_error(error)
